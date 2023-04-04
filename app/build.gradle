@@ -34,3 +34,7 @@ compileJava {
 run {
     standardInput = System.in
 }
+
+checkstyle {
+    toolVersion '9.2.1'
+}
