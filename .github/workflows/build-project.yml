@@ -1,4 +1,4 @@
-name: Buld project
+name: Build project
 
 on:
   - push
