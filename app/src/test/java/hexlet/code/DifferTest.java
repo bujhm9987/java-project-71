@@ -2,65 +2,55 @@ package hexlet.code;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DifferTest {
-    private final Map<String, Object> testMap1 = new HashMap<>();
-    private final Map<String, Object> testMap2 = new HashMap<>();
+    private static String testResourcesPath;
+    private static String jsonTestFile1;
+    private static String jsonTestFile2;
+    private static String yamlTestFile1;
+    private static String yamlTestFile2;
 
     @BeforeEach
     public void beforeEach() {
-        testMap1.put("host", "hexlet.io");
-        testMap1.put("timeout", 50);
-        testMap1.put("proxy", "123.234.53.22");
-        testMap1.put("follow", false);
+        testResourcesPath = new File("src/test/resources").getAbsolutePath();
+        jsonTestFile1 = testResourcesPath + "/json/testfile1.json";
+        jsonTestFile2 = testResourcesPath + "/json/testfile2.json";
 
-        testMap2.put("timeout", 20);
-        testMap2.put("verbose", true);
-        testMap2.put("host", "hexlet.io");
+        yamlTestFile1 = testResourcesPath + "/yaml/testfile1.yaml";
+        yamlTestFile2 = testResourcesPath + "/yaml/testfile2.yaml";
     }
-
-    @Test
-    public void testToResult1() {
-        String actualResult = Differ.toResult(testMap1, testMap2);
-        String expectedResult = """
-                {
-                  - follow: false
-                    host: hexlet.io
-                  - proxy: 123.234.53.22
-                  - timeout: 50
-                  + timeout: 20
-                  + verbose: true
-                }""";
-        assertEquals(actualResult, expectedResult);
-    }
-
-    @Test
-    public void testToResult2() {
-        String actualResult = Differ.toResult(testMap2, testMap1);
-        String expectedResult = """
-                {
-                  + follow: false
-                    host: hexlet.io
-                  + proxy: 123.234.53.22
-                  - timeout: 20
-                  + timeout: 50
-                  - verbose: true
-                }""";
+    private void compareFiles(String filePath1, String filePath2, String fileName, String format) throws IOException {
+        Path pathExpectedFile = Paths.get(testResourcesPath + "/expected/" + fileName);
+        String expectedResult = Files.readString(pathExpectedFile);
+        String actualResult = Differ.generate(filePath1, filePath2, format);
         assertEquals(actualResult, expectedResult);
     }
     @Test
-    public void testToResultEmpty() {
-        Map<String, Object> testEmptyMap1 = new HashMap<>();
-        Map<String, Object> testEmptyMap2 = new HashMap<>();
-        String actualResult = Differ.toResult(testEmptyMap1, testEmptyMap2);
-        String expectedResult = """
-                {
-                }""";
-        assertEquals(actualResult, expectedResult);
+    public void testJsonStylish() throws IOException {
+        String expectedFileName = "jsontest";
+        compareFiles(jsonTestFile1, jsonTestFile2, expectedFileName, "stylish");
     }
+
+    @Test
+    public void testYamlStylish() throws IOException {
+        String expectedFileName = "yamltest";
+        compareFiles(yamlTestFile1, yamlTestFile2, expectedFileName, "stylish");
+    }
+    @Test
+    public void testJsonPlain() throws IOException {
+        String expectedFileName = "plainjsontest";
+        compareFiles(jsonTestFile1, jsonTestFile2, expectedFileName, "plain");
+    }
+    @Test
+    public void toPlain() throws IOException {
+        //System.out.println(Differ.generate(jsonTestFile1, jsonTestFile2, "plain"));
+    }
+
 }

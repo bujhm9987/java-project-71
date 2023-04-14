@@ -5,6 +5,7 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
+import java.io.IOException;
 import java.util.concurrent.Callable;
 
 @Command(name = "gendiff",
@@ -14,7 +15,7 @@ import java.util.concurrent.Callable;
 
 class App implements Callable<Integer> {
 
-    @Option(names = {"-f", "--format"},
+    @Option(names = {"-f", "--format"}, defaultValue = "stylish",
             description = "output format [default: stylish]")
     String format;
 
@@ -27,8 +28,8 @@ class App implements Callable<Integer> {
     String filepath2;
 
     @Override
-    public Integer call() {
-        System.out.println(Differ.generate(filepath1, filepath2));
+    public Integer call() throws IOException {
+        System.out.println(Differ.generate(filepath1, filepath2, format));
         return 0;
     }
 

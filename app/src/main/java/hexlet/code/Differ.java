@@ -1,67 +1,59 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class Differ {
-    public static String generate(String filepath1, String filepath2) {
-        Map<String, Object> mapFile1 = toMap(filepath1);
-        Map<String, Object> mapFile2 = toMap(filepath2);
-
-        return toResult(mapFile1, mapFile2);
+    public static String generate(String filepath1, String filepath2, String format) throws IOException {
+        Map<String, String> mapFile1 = Parser.toMap(filepath1);
+        Map<String, String> mapFile2 = Parser.toMap(filepath2);
+        List<List<String>> resultDiff = toDiff(mapFile1, mapFile2);
+        return Formatter.selectFormat(resultDiff, format);
     }
 
-    public static Map<String, Object> toMap(String filepath) {
-        File file = new File(filepath);
+    public static List<List<String>> toDiff(Map<String, String> mapFile1, Map<String, String> mapFile2) {
+        Map<String, String> unionTreeMap = new TreeMap<>(mapFile1);
+        unionTreeMap.putAll(mapFile2);
+        String valueAdd = "added";
+        String valueDel = "removed";
+        String valueStay = "stay";
+        String valueChange = "updated";
 
-        try (BufferedReader fileReader = new BufferedReader(new FileReader(file))) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(fileReader, new TypeReference<>() { });
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            System.exit(1);
-        }
-        return null;
-    }
+        List<List<String>> list = new LinkedList<>();
 
-    public static String toResult(Map<String, Object> mapFile1, Map<String, Object> mapFile2) {
+        for (Map.Entry<String, String> entry : unionTreeMap.entrySet()) {
+            List<String> lines = new LinkedList<>();
+            String key = entry.getKey();
+            String value = entry.getValue();
 
-        Map<String, Object> unionMap = new TreeMap<>(mapFile1);
-        unionMap.putAll(mapFile2);
-
-        String strAdd = "  + ";
-        String strDel = "  - ";
-        String strSpace = "    ";
-        StringBuilder result = new StringBuilder();
-        result.append("{\n");
-
-        for (Map.Entry<String, Object> entry : unionMap.entrySet()) {
-            String entryMapKey = entry.getKey();
-            Object entryMapValue = entry.getValue();
-            String entryKeyValue = entry.getKey() + ": " + entry.getValue() + "\n";
-
-            if (!mapFile1.containsKey(entryMapKey)) {
-                result.append(strAdd).append(entryKeyValue);
-            } else if (mapFile1.containsKey(entryMapKey) && !mapFile2.containsKey(entryMapKey)) {
-                result.append(strDel).append(entryKeyValue);
-            } else if (mapFile1.containsKey(entryMapKey) && mapFile2.containsKey(entryMapKey)
-                    && !mapFile1.get(entryMapKey).equals(entryMapValue)) {
-                result.append(strDel).append(entryMapKey).append(": ").append(mapFile1.get(entryMapKey)).append("\n");
-                result.append(strAdd).append(entryKeyValue);
+            if (!mapFile1.containsKey(key)) {
+                lines.add(valueAdd);
+                lines.add(key);
+                lines.add(value);
+            } else if (mapFile1.containsKey(key) && !mapFile2.containsKey(key)) {
+                lines.add(valueDel);
+                lines.add(key);
+                lines.add(value);
+            } else if (mapFile1.containsKey(key) && mapFile2.containsKey(key)
+                    && !mapFile1.get(key).equals(value)) {
+                List<String> lineDel = new LinkedList<>();
+                lineDel.add(valueChange);
+                lineDel.add(key);
+                lineDel.add(mapFile1.get(key));
+                list.add(lineDel);
+                lines.add(valueChange);
+                lines.add(key);
+                lines.add(value);
             } else {
-                result.append(strSpace).append(entryKeyValue);
+                lines.add(valueStay);
+                lines.add(key);
+                lines.add(value);
             }
+            list.add(lines);
         }
-        result.append("}");
-
-        return result.toString();
+        return list;
     }
-
 }

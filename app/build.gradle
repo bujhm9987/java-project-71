@@ -21,6 +21,7 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
     implementation 'info.picocli:picocli:4.7.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2'
     test {
         finalizedBy jacocoTestReport // report is always generated after tests run
     }
