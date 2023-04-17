@@ -1,47 +1,38 @@
 package hexlet.code.formatters;
 
-import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 
 public class Plain {
-    public static String toPlain(List<List<String>> inputDiff) {
+    public static String toPlain(Map<String, Map<String, String>> inputDiff) {
         StringBuilder result = new StringBuilder();
         String strAdd = "Property %s was %s with value: %s%s";
         String strRem = "Property %s was %s%s";
         String strUpd = "Property %s was %s. From %s to %s%s";
 
-        boolean changeCheck = false;
-        String valueFirst = "";
-
         String nl = "\n";
+        for (Map.Entry<String, Map<String, String>> entry : inputDiff.entrySet()) {
+            String key = toStyleString(entry.getKey());
+            Map<String, String> value = entry.getValue();
+            String eventKey = value.get("event");
+            String line = "";
 
-        for (List<String> entryList : inputDiff) {
-            String action = entryList.get(0);
-            String key = toStyleString(entryList.get(1));
-            String value = toStyleString(entryList.get(2));
-
-            switch (action) {
+            switch (eventKey) {
                 case ("added") -> {
-                    String line = String.format(strAdd, key, action, value, nl);
-                    result.append(line);
+                    line = String.format(strAdd, key, eventKey, toStyleString(value.get("new_value")), nl);
                 }
                 case ("removed") -> {
-                    String line = String.format(strRem, key, action, nl);
-                    result.append(line);
+                    line = String.format(strRem, key, eventKey, nl);
                 }
                 case ("updated") -> {
-                    if (changeCheck) {
-                        String line = String.format(strUpd, key, action, valueFirst, value, nl);
-                        changeCheck = false;
-                        result.append(line);
-                    } else {
-                        valueFirst = value;
-                        changeCheck = true;
-                    }
+                    line = String.format(strUpd, key, eventKey, toStyleString(value.get("old_value")),
+                            toStyleString(value.get("new_value")), nl);
                 }
                 default -> {
                 }
             }
+            result.append(line);
         }
         return result.substring(0, result.length() - 1);
     }

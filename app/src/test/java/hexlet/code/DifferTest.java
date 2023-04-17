@@ -34,13 +34,13 @@ class DifferTest {
     }
     @Test
     public void testJsonStylish() throws IOException {
-        String expectedFileName = "jsontest";
+        String expectedFileName = "stylishjsontest";
         compareFiles(jsonTestFile1, jsonTestFile2, expectedFileName, "stylish");
     }
 
     @Test
     public void testYamlStylish() throws IOException {
-        String expectedFileName = "yamltest";
+        String expectedFileName = "stylishyamltest";
         compareFiles(yamlTestFile1, yamlTestFile2, expectedFileName, "stylish");
     }
     @Test
@@ -49,8 +49,27 @@ class DifferTest {
         compareFiles(jsonTestFile1, jsonTestFile2, expectedFileName, "plain");
     }
     @Test
-    public void toPlain() throws IOException {
-        //System.out.println(Differ.generate(jsonTestFile1, jsonTestFile2, "plain"));
+    public void testYamlPlain() throws IOException {
+        String expectedFileName = "plainyamltest";
+        compareFiles(yamlTestFile1, yamlTestFile2, expectedFileName, "plain");
     }
+    @Test
+    public void testJsonJson() throws IOException {
+        String expectedFileName = "jsonjsontest";
+        compareFiles(jsonTestFile1, jsonTestFile2, expectedFileName, "json");
+    }
+    @Test
+    public void testYamlJson() throws IOException {
+        String expectedFileName = "jsonyamltest";
+        compareFiles(yamlTestFile1, yamlTestFile2, expectedFileName, "json");
+    }
+    /*@Test
+    public void toPlain() throws IOException {
+        //System.out.println(Differ.generate(jsonTestFile1, jsonTestFile2, "json"));
+
+        Map<String, Map<String, String>> diff = Differ.toMapDiff(Parser.toMap(jsonTestFile1),
+                Parser.toMap(jsonTestFile2));
+        System.out.println(diff);
+    }*/
 
 }
