@@ -63,13 +63,4 @@ class DifferTest {
         String expectedFileName = "jsonyamltest";
         compareFiles(yamlTestFile1, yamlTestFile2, expectedFileName, "json");
     }
-    /*@Test
-    public void toPlain() throws IOException {
-        //System.out.println(Differ.generate(jsonTestFile1, jsonTestFile2, "json"));
-
-        Map<String, Map<String, String>> diff = Differ.toMapDiff(Parser.toMap(jsonTestFile1),
-                Parser.toMap(jsonTestFile2));
-        System.out.println(diff);
-    }*/
-
 }
