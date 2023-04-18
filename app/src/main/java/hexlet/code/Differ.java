@@ -6,11 +6,14 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Differ {
-    public static String generate2(String filepath1, String filepath2, String format) throws IOException {
+    public static String generate(String filepath1, String filepath2, String format) throws IOException {
         Map<String, String> mapFile1 = Parser.toMap(filepath1);
         Map<String, String> mapFile2 = Parser.toMap(filepath2);
         Map<String, Map<String, String>> resultDiff = toMapDiff(mapFile1, mapFile2);
         return Formatter.selectFormat(resultDiff, format);
+    }
+    public static String generate(String filepath1, String filepath2) throws IOException {
+        return Differ.generate(filepath1, filepath2, "stylish");
     }
 
     public static Map<String, Map<String, String>> toMapDiff(Map<String, String> mapFile1,

@@ -29,7 +29,7 @@ class DifferTest {
     private void compareFiles(String filePath1, String filePath2, String fileName, String format) throws IOException {
         Path pathExpectedFile = Paths.get(testResourcesPath + "/expected/" + fileName);
         String expectedResult = Files.readString(pathExpectedFile);
-        String actualResult = Differ.generate2(filePath1, filePath2, format);
+        String actualResult = Differ.generate(filePath1, filePath2, format);
         assertEquals(actualResult, expectedResult);
     }
     @Test
