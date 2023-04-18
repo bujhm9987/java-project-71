@@ -20,13 +20,11 @@ public class Parser {
             case ("json") -> {
                 return jsonToMap(filepath);
             }
-            case ("yaml") -> {
+            case ("yaml"), ("yml") -> {
                 return yamlToMap(filepath);
             }
             default -> {
-                System.out.println("ERROR: File extension not supported");
-                System.exit(1);
-                return null;
+                throw new IOException("ERROR: File extension not supported");
             }
         }
     }
