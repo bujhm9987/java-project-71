@@ -24,7 +24,7 @@ public class Parser {
                 return yamlToMap(filepath);
             }
             default -> {
-                throw new IOException("ERROR: File extension not supported");
+                throw new IOException("File extension not supported");
             }
         }
     }
