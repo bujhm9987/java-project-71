@@ -17,15 +17,15 @@ class App implements Callable<Integer> {
 
     @Option(names = {"-f", "--format"}, defaultValue = "stylish",
             description = "output format [default: stylish]")
-    String format;
+    private String format;
 
     @Parameters(paramLabel = "filepath1",
             description = "path to first file")
-    String filepath1;
+    private String filepath1;
 
     @Parameters(paramLabel = "filepath2",
             description = "path to second file")
-    String filepath2;
+    private String filepath2;
 
     @Override
     public Integer call() throws IOException {
