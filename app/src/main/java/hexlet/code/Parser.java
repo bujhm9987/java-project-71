@@ -24,7 +24,8 @@ public class Parser {
                 return yamlToMap(filepath);
             }
             default -> {
-                System.out.println("File extension not supported");
+                System.out.println("ERROR: File extension not supported");
+                System.exit(1);
                 return null;
             }
         }

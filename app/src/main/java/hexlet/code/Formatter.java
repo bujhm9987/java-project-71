@@ -20,7 +20,7 @@ public class Formatter {
                 return Json.toJson(inputList);
             }
             default -> {
-                return "Incorrect format";
+                return "ERROR: Incorrect format";
             }
         }
     }

@@ -48,4 +48,19 @@ class DifferTest {
         String expectedFileName = "plainjsontest";
         compareFiles(jsonTestFile1, jsonTestFile2, expectedFileName, "plain");
     }
+    @Test
+    public void testYamlPlain() throws IOException {
+        String expectedFileName = "plainyamltest";
+        compareFiles(yamlTestFile1, yamlTestFile2, expectedFileName, "plain");
+    }
+    @Test
+    public void testJsonJson() throws IOException {
+        String expectedFileName = "jsonjsontest";
+        compareFiles(jsonTestFile1, jsonTestFile2, expectedFileName, "json");
+    }
+    @Test
+    public void testYamlJson() throws IOException {
+        String expectedFileName = "jsonyamltest";
+        compareFiles(yamlTestFile1, yamlTestFile2, expectedFileName, "json");
+    }
 }
