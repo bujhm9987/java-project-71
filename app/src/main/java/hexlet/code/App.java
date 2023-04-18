@@ -19,11 +19,11 @@ class App implements Callable<Integer> {
             description = "output format [default: stylish]")
     String format;
 
-    @Parameters(paramLabel = "filepath1", /*defaultValue = "Hello, picocli",*/
+    @Parameters(paramLabel = "filepath1",
             description = "path to first file")
     String filepath1;
 
-    @Parameters(paramLabel = "filepath2", /*defaultValue = "Hello, picocli",*/
+    @Parameters(paramLabel = "filepath2",
             description = "path to second file")
     String filepath2;
 
