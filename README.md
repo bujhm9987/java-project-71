@@ -31,7 +31,7 @@
 
     ./build/install/app/bin/app -h
 
-### Выбор формата результата сравнения
+### Выбор формата вывода результата сравнения
 
     ./build/install/app/bin/app -f format filepath1.json filepath2.json
 
