@@ -5,23 +5,23 @@
   },
   "chars2" : {
     "event" : "updated",
-    "old_value" : "[d, e, f]",
-    "new_value" : "false"
+    "new_value" : "false",
+    "old_value" : "[d, e, f]"
   },
   "checked" : {
     "event" : "updated",
-    "old_value" : "false",
-    "new_value" : "true"
+    "new_value" : "true",
+    "old_value" : "false"
   },
   "default" : {
     "event" : "updated",
-    "old_value" : "null",
-    "new_value" : "[value1, value2]"
+    "new_value" : "[value1, value2]",
+    "old_value" : "null"
   },
   "id" : {
     "event" : "updated",
-    "old_value" : "45",
-    "new_value" : "null"
+    "new_value" : "null",
+    "old_value" : "45"
   },
   "key1" : {
     "event" : "removed",
@@ -37,8 +37,8 @@
   },
   "numbers2" : {
     "event" : "updated",
-    "old_value" : "[2, 3, 4, 5]",
-    "new_value" : "[22, 33, 44, 55]"
+    "new_value" : "[22, 33, 44, 55]",
+    "old_value" : "[2, 3, 4, 5]"
   },
   "numbers3" : {
     "event" : "removed",
@@ -54,17 +54,17 @@
   },
   "setting1" : {
     "event" : "updated",
-    "old_value" : "Some value",
-    "new_value" : "Another value"
+    "new_value" : "Another value",
+    "old_value" : "Some value"
   },
   "setting2" : {
     "event" : "updated",
-    "old_value" : "200",
-    "new_value" : "300"
+    "new_value" : "300",
+    "old_value" : "200"
   },
   "setting3" : {
     "event" : "updated",
-    "old_value" : "true",
-    "new_value" : "none"
+    "new_value" : "none",
+    "old_value" : "true"
   }
 }
