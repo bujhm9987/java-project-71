@@ -3,6 +3,7 @@ package hexlet.code;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Differ {
@@ -29,7 +30,15 @@ public class Differ {
         File file = new File(filepath);
         String fileData = Files.readString(file.toPath());
         String fileExtension = getExtension(filepath);
-
-        return Parser.toMap(fileData, fileExtension);
+        Map<String, Object> parsFile = Parser.toMap(fileData, fileExtension);
+        return convertToMapStrings(parsFile);
+    }
+    private static Map<String, String> convertToMapStrings(Map<String, Object> inputMap) {
+        Map<String, String> outputMap = new HashMap<>();
+        for (String key : inputMap.keySet()) {
+            Object value = inputMap.get(key);
+            outputMap.put(key, String.valueOf(value));
+        }
+        return outputMap;
     }
 }
