@@ -5,11 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Parser {
 
-    public static Map<String, Object> toMap(String fileData, String fileExtension) throws IOException {
+    public static Map<String, String> toMap(String fileData, String fileExtension) throws IOException {
         Map<String, Object> parseFile;
         switch (fileExtension) {
             case ("json") -> {
@@ -24,6 +25,15 @@ public class Parser {
                 throw new IOException("File extension not supported");
             }
         }
-        return parseFile;
+        return convertToMapStrings(parseFile);
+    }
+
+    private static Map<String, String> convertToMapStrings(Map<String, Object> inputMap) {
+        Map<String, String> outputMap = new HashMap<>();
+        for (String key : inputMap.keySet()) {
+            Object value = inputMap.get(key);
+            outputMap.put(key, String.valueOf(value));
+        }
+        return outputMap;
     }
 }

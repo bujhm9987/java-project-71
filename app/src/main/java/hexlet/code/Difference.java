@@ -10,7 +10,6 @@ import java.util.TreeSet;
 public class Difference {
     private enum Keys {
         EVENT("event"),
-        KEY("key"),
         NEW_VALUE("new_value"),
         OLD_VALUE("old_value"),
         VALUE("value");
@@ -32,7 +31,6 @@ public class Difference {
     }
     public static Map<String, Map<String, String>> toMapDiff(Map<String, String> mapFile1,
                                                              Map<String, String> mapFile2) {
-
         Set<String> mapsKeySet = new TreeSet<>(mapFile1.keySet());
         mapsKeySet.addAll(mapFile2.keySet());
 
