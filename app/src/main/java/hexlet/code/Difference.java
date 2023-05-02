@@ -1,5 +1,8 @@
 package hexlet.code;
 
+import hexlet.code.common.Keys;
+import hexlet.code.common.Status;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -8,52 +11,30 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Difference {
-    private enum Keys {
-        EVENT("event"),
-        NEW_VALUE("new_value"),
-        OLD_VALUE("old_value"),
-        VALUE("value");
-        private final String value;
-        Keys(String value) {
-            this.value = value;
-        }
-    }
 
-    private enum Status {
-        ADD("added"),
-        DEL("removed"),
-        UNCHANGED("unchanged"),
-        CHANGED("updated");
-        private final String value;
-        Status(String value) {
-            this.value = value;
-        }
-    }
-    public static Map<String, Map<String, String>> toMapDiff(Map<String, String> mapFile1,
-                                                             Map<String, String> mapFile2) {
+    public static Map<String, Map<Keys, Object>> toMapDiff(Map<String, Object> mapFile1,
+                                                           Map<String, Object> mapFile2) {
         Set<String> mapsKeySet = new TreeSet<>(mapFile1.keySet());
         mapsKeySet.addAll(mapFile2.keySet());
 
-        Map<String, Map<String, String>> diffMap = new LinkedHashMap<>();
-        //Использовал Map, т.к. при выводе результата в формате JSON с использованием Map в качесве
-        //входного элемента objectMapper создает более правильный и читаемый результат.
+        Map<String, Map<Keys, Object>> diffMap = new LinkedHashMap<>();
 
         for (String key : mapsKeySet) {
-            Map<String, String> mapValue = new TreeMap<>();
+            Map<Keys, Object> mapValue = new TreeMap<>();
 
             if (!mapFile1.containsKey(key)) {
-                mapValue.put(Keys.EVENT.value, Status.ADD.value);
-                mapValue.put(Keys.NEW_VALUE.value, mapFile2.get(key));
+                mapValue.put(Keys.event, Status.added);
+                mapValue.put(Keys.new_value, mapFile2.get(key));
             } else if (!mapFile2.containsKey(key)) {
-                mapValue.put(Keys.EVENT.value, Status.DEL.value);
-                mapValue.put(Keys.OLD_VALUE.value, mapFile1.get(key));
+                mapValue.put(Keys.event, Status.removed);
+                mapValue.put(Keys.old_value, mapFile1.get(key));
             } else if (!Objects.equals(mapFile1.get(key), mapFile2.get(key))) {
-                mapValue.put(Keys.EVENT.value, Status.CHANGED.value);
-                mapValue.put(Keys.OLD_VALUE.value, mapFile1.get(key));
-                mapValue.put(Keys.NEW_VALUE.value, mapFile2.get(key));
+                mapValue.put(Keys.event, Status.updated);
+                mapValue.put(Keys.old_value, mapFile1.get(key));
+                mapValue.put(Keys.new_value, mapFile2.get(key));
             } else {
-                mapValue.put(Keys.EVENT.value, Status.UNCHANGED.value);
-                mapValue.put(Keys.VALUE.value, mapFile2.get(key));
+                mapValue.put(Keys.event, Status.unchanged);
+                mapValue.put(Keys.value, mapFile2.get(key));
             }
             diffMap.put(key, mapValue);
         }

@@ -1,9 +1,12 @@
 package hexlet.code.formatters;
 
+import hexlet.code.common.Keys;
+import hexlet.code.common.Status;
+
 import java.util.Map;
 
 public class Stylish {
-    public static String toStylish(Map<String, Map<String, String>> inputDiff) {
+    public static String toStylish(Map<String, Map<Keys, Object>> inputDiff) {
         StringBuilder result = new StringBuilder();
 
         String add = "+";
@@ -12,25 +15,20 @@ public class Stylish {
         String nl = "\n";
 
         result.append("{\n");
-        for (Map.Entry<String, Map<String, String>> entry : inputDiff.entrySet()) {
+        for (Map.Entry<String, Map<Keys, Object>> entry : inputDiff.entrySet()) {
             String key = entry.getKey();
-            Map<String, String> value = entry.getValue();
-            String eventKey = value.get("event");
+            Map<Keys, Object> value = entry.getValue();
+            Object eventKey = value.get(Keys.event);
             String line;
-            switch (eventKey) {
-                case ("added") -> {
-                    line = String.format("  %s %s: %s%s", add, key, value.get("new_value"), nl);
-                }
-                case ("removed") -> {
-                    line = String.format("  %s %s: %s%s", del, key, value.get("old_value"), nl);
-                }
-                case ("updated") -> {
-                    line = String.format("  %s %s: %s%s", del, key, value.get("old_value"), nl)
-                            + String.format("  %s %s: %s%s", add, key, value.get("new_value"), nl);
-                }
-                default -> {
-                    line = String.format("  %s %s: %s%s", space, key, value.get("value"), nl);
-                }
+            if (eventKey.equals(Status.added)) {
+                line = String.format("  %s %s: %s%s", add, key, value.get(Keys.new_value), nl);
+            } else if (eventKey.equals(Status.removed)) {
+                line = String.format("  %s %s: %s%s", del, key, value.get(Keys.old_value), nl);
+            } else if (eventKey.equals(Status.updated)) {
+                line = String.format("  %s %s: %s%s", del, key, value.get(Keys.old_value), nl)
+                        + String.format("  %s %s: %s%s", add, key, value.get(Keys.new_value), nl);
+            } else {
+                line = String.format("  %s %s: %s%s", space, key, value.get(Keys.value), nl);
             }
             result.append(line);
         }
