@@ -1,8 +1,8 @@
 package hexlet.code.common;
 
 public enum Status {
-    added,
-    removed,
-    unchanged,
-    updated
+    ADDED,
+    REMOVED,
+    UNCHANGED,
+    UPDATED
 }

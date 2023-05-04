@@ -1,7 +1,6 @@
 package hexlet.code.formatters;
 
 import hexlet.code.common.Keys;
-import hexlet.code.common.Status;
 
 import java.util.Map;
 
@@ -18,18 +17,14 @@ public class Stylish {
         for (Map.Entry<String, Map<Keys, Object>> entry : inputDiff.entrySet()) {
             String key = entry.getKey();
             Map<Keys, Object> value = entry.getValue();
-            Object eventKey = value.get(Keys.event);
-            String line;
-            if (eventKey.equals(Status.added)) {
-                line = String.format("  %s %s: %s%s", add, key, value.get(Keys.new_value), nl);
-            } else if (eventKey.equals(Status.removed)) {
-                line = String.format("  %s %s: %s%s", del, key, value.get(Keys.old_value), nl);
-            } else if (eventKey.equals(Status.updated)) {
-                line = String.format("  %s %s: %s%s", del, key, value.get(Keys.old_value), nl)
-                        + String.format("  %s %s: %s%s", add, key, value.get(Keys.new_value), nl);
-            } else {
-                line = String.format("  %s %s: %s%s", space, key, value.get(Keys.value), nl);
-            }
+            String eventKey = value.get(Keys.EVENT).toString();
+            String line = switch (eventKey) {
+                case ("ADDED") -> String.format("  %s %s: %s%s", add, key, value.get(Keys.NEW_VALUE), nl);
+                case ("REMOVED") -> String.format("  %s %s: %s%s", del, key, value.get(Keys.OLD_VALUE), nl);
+                case ("UPDATED") -> String.format("  %s %s: %s%s", del, key, value.get(Keys.OLD_VALUE), nl)
+                            + String.format("  %s %s: %s%s", add, key, value.get(Keys.NEW_VALUE), nl);
+                default -> String.format("  %s %s: %s%s", space, key, value.get(Keys.VALUE), nl);
+            };
             result.append(line);
         }
         result.append("}");

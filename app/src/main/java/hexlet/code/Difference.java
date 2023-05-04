@@ -23,18 +23,18 @@ public class Difference {
             Map<Keys, Object> mapValue = new TreeMap<>();
 
             if (!mapFile1.containsKey(key)) {
-                mapValue.put(Keys.event, Status.added);
-                mapValue.put(Keys.new_value, mapFile2.get(key));
+                mapValue.put(Keys.EVENT, Status.ADDED);
+                mapValue.put(Keys.NEW_VALUE, mapFile2.get(key));
             } else if (!mapFile2.containsKey(key)) {
-                mapValue.put(Keys.event, Status.removed);
-                mapValue.put(Keys.old_value, mapFile1.get(key));
+                mapValue.put(Keys.EVENT, Status.REMOVED);
+                mapValue.put(Keys.OLD_VALUE, mapFile1.get(key));
             } else if (!Objects.equals(mapFile1.get(key), mapFile2.get(key))) {
-                mapValue.put(Keys.event, Status.updated);
-                mapValue.put(Keys.old_value, mapFile1.get(key));
-                mapValue.put(Keys.new_value, mapFile2.get(key));
+                mapValue.put(Keys.EVENT, Status.UPDATED);
+                mapValue.put(Keys.OLD_VALUE, mapFile1.get(key));
+                mapValue.put(Keys.NEW_VALUE, mapFile2.get(key));
             } else {
-                mapValue.put(Keys.event, Status.unchanged);
-                mapValue.put(Keys.value, mapFile2.get(key));
+                mapValue.put(Keys.EVENT, Status.UNCHANGED);
+                mapValue.put(Keys.VALUE, mapFile2.get(key));
             }
             diffMap.put(key, mapValue);
         }

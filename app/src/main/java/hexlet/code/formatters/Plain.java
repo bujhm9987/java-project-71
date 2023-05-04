@@ -3,7 +3,6 @@ package hexlet.code.formatters;
 import java.util.Map;
 
 import hexlet.code.common.Keys;
-import hexlet.code.common.Status;
 
 public class Plain {
     public static String toPlain(Map<String, Map<Keys, Object>> inputDiff) {
@@ -16,17 +15,15 @@ public class Plain {
         for (Map.Entry<String, Map<Keys, Object>> entry : inputDiff.entrySet()) {
             Object key = toStyleString(entry.getKey());
             Map<Keys, Object> value = entry.getValue();
-            Object eventKey = value.get(Keys.event);
-
+            String eventKey = value.get(Keys.EVENT).toString().toLowerCase();
             String line = "";
-
-            if (eventKey.equals(Status.added)) {
-                line = String.format(strAdd, key, eventKey, toStyleString(value.get(Keys.new_value)), nl);
-            } else if (eventKey.equals(Status.removed)) {
+            if (eventKey.equals("added")) {
+                line = String.format(strAdd, key, eventKey, toStyleString(value.get(Keys.NEW_VALUE)), nl);
+            } else if (eventKey.equals("removed")) {
                 line = String.format(strRem, key, eventKey, nl);
-            } else if (eventKey.equals(Status.updated)) {
-                line = String.format(strUpd, key, eventKey, toStyleString(value.get(Keys.old_value)),
-                        toStyleString(value.get(Keys.new_value)), nl);
+            } else if (eventKey.equals("updated")) {
+                line = String.format(strUpd, key, eventKey,
+                        toStyleString(value.get(Keys.OLD_VALUE)), toStyleString(value.get(Keys.NEW_VALUE)), nl);
             }
             result.append(line);
         }

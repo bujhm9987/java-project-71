@@ -1,73 +1,73 @@
 {
   "chars1" : {
-    "event" : "unchanged",
-    "value" : [ "a", "b", "c" ]
+    "EVENT" : "UNCHANGED",
+    "VALUE" : [ "a", "b", "c" ]
   },
   "chars2" : {
-    "event" : "updated",
-    "new_value" : false,
-    "old_value" : [ "d", "e", "f" ]
+    "EVENT" : "UPDATED",
+    "NEW_VALUE" : false,
+    "OLD_VALUE" : [ "d", "e", "f" ]
   },
   "checked" : {
-    "event" : "updated",
-    "new_value" : true,
-    "old_value" : false
+    "EVENT" : "UPDATED",
+    "NEW_VALUE" : true,
+    "OLD_VALUE" : false
   },
   "default" : {
-    "event" : "updated",
-    "new_value" : [ "value1", "value2" ],
-    "old_value" : null
+    "EVENT" : "UPDATED",
+    "NEW_VALUE" : [ "value1", "value2" ],
+    "OLD_VALUE" : null
   },
   "id" : {
-    "event" : "updated",
-    "new_value" : null,
-    "old_value" : 45
+    "EVENT" : "UPDATED",
+    "NEW_VALUE" : null,
+    "OLD_VALUE" : 45
   },
   "key1" : {
-    "event" : "removed",
-    "old_value" : "value1"
+    "EVENT" : "REMOVED",
+    "OLD_VALUE" : "value1"
   },
   "key2" : {
-    "event" : "added",
-    "new_value" : "value2"
+    "EVENT" : "ADDED",
+    "NEW_VALUE" : "value2"
   },
   "numbers1" : {
-    "event" : "unchanged",
-    "value" : [ 1, 2, 3, 4 ]
+    "EVENT" : "UNCHANGED",
+    "VALUE" : [ 1, 2, 3, 4 ]
   },
   "numbers2" : {
-    "event" : "updated",
-    "new_value" : [ 22, 33, 44, 55 ],
-    "old_value" : [ 2, 3, 4, 5 ]
+    "EVENT" : "UPDATED",
+    "NEW_VALUE" : [ 22, 33, 44, 55 ],
+    "OLD_VALUE" : [ 2, 3, 4, 5 ]
   },
   "numbers3" : {
-    "event" : "removed",
-    "old_value" : [ 3, 4, 5 ]
+    "EVENT" : "REMOVED",
+    "OLD_VALUE" : [ 3, 4, 5 ]
   },
   "numbers4" : {
-    "event" : "added",
-    "new_value" : [ 4, 5, 6 ]
+    "EVENT" : "ADDED",
+    "NEW_VALUE" : [ 4, 5, 6 ]
   },
   "obj1" : {
-    "event" : "added",
-    "new_value" : {
+    "EVENT" : "ADDED",
+    "NEW_VALUE" : {
       "nestedKey" : "value",
       "isNested" : true
     }
   },
   "setting1" : {
-    "event" : "updated",
-    "new_value" : "Another value",
-    "old_value" : "Some value"
+    "EVENT" : "UPDATED",
+    "NEW_VALUE" : "Another value",
+    "OLD_VALUE" : "Some value"
   },
   "setting2" : {
-    "event" : "updated",
-    "new_value" : 300,
-    "old_value" : 200
+    "EVENT" : "UPDATED",
+    "NEW_VALUE" : 300,
+    "OLD_VALUE" : 200
   },
   "setting3" : {
-    "event" : "updated",
-    "new_value" : "none",
-    "old_value" : true
+    "EVENT" : "UPDATED",
+    "NEW_VALUE" : "none",
+    "OLD_VALUE" : true
   }
 }

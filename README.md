@@ -42,5 +42,5 @@
 * [Сравнение YAML файлов](https://asciinema.org/a/5BJBV4bKo8pWY57IMSEn0gGdo)
 * [Вывод результата сравнения в формате Stylish](https://asciinema.org/a/8Hwqi12QMEXv6L7cchxAT7LlJ)
 * [Вывод результата сравнения в формате Plain](https://asciinema.org/a/uxXE2XLm4IeNcdO2JZxBR49MA)
-* [Вывод результата сравнения в формате JSON](https://asciinema.org/a/bcGEgVDcHwLZMZ1CLHjPjxvo3)
+* [Вывод результата сравнения в формате JSON](https://asciinema.org/a/346O6w6quHyndP1K4whhpj0O9)
 
