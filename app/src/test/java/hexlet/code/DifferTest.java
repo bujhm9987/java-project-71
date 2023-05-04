@@ -20,11 +20,11 @@ class DifferTest {
 
     @BeforeEach
     public void beforeEach() throws IOException {
-        expectedJson = getFile("expectedjson");
-        expectedPlain = getFile("expectedplain");
-        expectedStylish = getFile("expectedstylish");
+        expectedJson = getData("expectedjson");
+        expectedPlain = getData("expectedplain");
+        expectedStylish = getData("expectedstylish");
     }
-    private String getFile(String filePath) throws IOException {
+    private String getData(String filePath) throws IOException {
         Path pathFile = Paths.get(TESTS_ABS_PATH + "/" + filePath);
         return Files.readString(pathFile);
     }
